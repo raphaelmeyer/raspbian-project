@@ -5,10 +5,10 @@ unit-tests: host-src
 	~/host/unit-tests/unit-tests
 
 application: target-src
-	cmake --build ./target --target display
+	cmake --build ~/target --target display
 
 clean-target:
-	cmake --build ./target --target clean
+	cmake --build ~/target --target clean
 
 clean-host:
 	cmake --build ~/host --target clean
@@ -21,5 +21,5 @@ target-src:
 
 host-src:
 	mkdir -p ~/host
-	cd ~/host && cmake /vagarant/source/
+	cd ~/host && cmake /vagrant/source/
 
