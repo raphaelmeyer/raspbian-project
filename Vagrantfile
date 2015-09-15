@@ -6,6 +6,7 @@ Vagrant.configure(2) do |config|
   config.vm.box = "ubuntu/vivid64"
 
   config.vm.synced_folder "./project", "/home/vagrant/project"
+  config.vm.synced_folder "./artifacts", "/home/vagrant/artifacts"
 
   config.vm.provider "virtualbox" do |vb|
 

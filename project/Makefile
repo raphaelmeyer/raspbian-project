@@ -6,6 +6,7 @@ unit-tests: host-src
 
 application: target-src
 	cmake --build ~/target --target display
+	cp ~/target/main/display ~/artifacts/
 
 clean-target:
 	cmake --build ~/target --target clean
@@ -17,9 +18,9 @@ clean: clean-target clean-host
 
 target-src:
 	mkdir -p ~/target
-	cd ~/target && cmake -DCMAKE_TOOLCHAIN_FILE=/vagrant/rpi.cmake /vagrant/source/
+	cd ~/target && cmake -DCMAKE_TOOLCHAIN_FILE=~/project/rpi.cmake ~/project/source/
 
 host-src:
 	mkdir -p ~/host
-	cd ~/host && cmake /vagrant/source/
+	cd ~/host && cmake ~/project/source
 
