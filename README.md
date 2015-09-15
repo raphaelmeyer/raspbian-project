@@ -3,7 +3,5 @@
 ## build
 
     vagrant up
-    vagrant ssh
-    cd project
-    make
+    vagrant ssh -c "make -C project"
 
