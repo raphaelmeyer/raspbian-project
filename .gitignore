@@ -1,0 +1,9 @@
+
+*.swp
+
+/host/
+/target/
+
+/.vagrant/
+
+
