@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 3.0.0)
 
 project(display VERSION 0.0.1)
 
+add_definitions(
+  -std=c++11
+  )
 
 add_subdirectory(main)
 add_subdirectory(application)
