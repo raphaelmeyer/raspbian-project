@@ -1,10 +1,9 @@
 set(CMAKE_SYSTEM_NAME Linux)
 
-#set(CMAKE_SYSROOT /home/devel/rasp-pi-rootfs)
-#set(CMAKE_STAGING_PREFIX /home/devel/stage)
-
 set(CMAKE_C_COMPILER arm-linux-gnueabihf-gcc)
 set(CMAKE_CXX_COMPILER arm-linux-gnueabihf-g++)
+
+set(CMAKE_FIND_ROOT_PATH /home/vagrant/rootfs)
 
 set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
 set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)

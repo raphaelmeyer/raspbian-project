@@ -1,9 +1,5 @@
 
 *.swp
 
-/host/
-/target/
-
 /.vagrant/
-
 

@@ -7,6 +7,7 @@ Vagrant.configure(2) do |config|
 
   config.vm.synced_folder "./project", "/home/vagrant/project"
   config.vm.synced_folder "./artifacts", "/home/vagrant/artifacts"
+  config.vm.synced_folder "./rootfs", "/home/vagrant/rootfs"
 
   config.vm.provider "virtualbox" do |vb|
 
