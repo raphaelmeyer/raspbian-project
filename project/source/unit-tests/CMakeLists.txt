@@ -2,6 +2,7 @@ project(unit-tests)
 
 add_executable(unit-tests
   application.cc
+  display.cc
   )
 add_executable(test::unit-tests ALIAS unit-tests)
 
