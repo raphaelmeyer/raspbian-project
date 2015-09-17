@@ -2,6 +2,7 @@
 #define display_h
 
 #include <cstdint>
+#include <vector>
 
 class iDogm163 {
   public:
@@ -16,6 +17,8 @@ class Display {
 
   private:
     iDogm163 & dogm163;
+
+    static std::vector<uint8_t> const initialization;
 };
 
 #endif
