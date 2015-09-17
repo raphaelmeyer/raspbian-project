@@ -10,8 +10,12 @@ class iDogm163 {
 
 class Display {
   public:
-    Display(iDogm163 &) {}
+    Display(iDogm163 & dogm163);
 
+    void init();
+
+  private:
+    iDogm163 & dogm163;
 };
 
 #endif

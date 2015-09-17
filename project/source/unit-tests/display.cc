@@ -22,9 +22,10 @@ Entry Mode Set    0 0 0 0 0 0 0 1 1 0 $06 Cursor Auto-Increment
 
 */
 
-TEST(display, is_initialized_with_a_sequence_of_commands) {
-
+TEST(display, is_initialized_with_a_sequence_of_commands)
+{
   Dogm163_Mock dogm163;
+  Display testee(dogm163);
 
   InSequence init;
 
@@ -37,6 +38,7 @@ TEST(display, is_initialized_with_a_sequence_of_commands) {
   EXPECT_CALL(dogm163, write_command(0x55))
     .WillOnce(Return(true));
 
-  Display testee(dogm163);
+  testee.init();
+
 }
 
