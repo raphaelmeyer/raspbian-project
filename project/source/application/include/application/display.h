@@ -9,11 +9,16 @@ class iDogm163 {
     virtual bool write_command(std::uint8_t command) = 0;
 };
 
-class Display {
+class iDisplay {
+  public:
+    virtual void init() = 0;
+};
+
+class Display : public iDisplay {
   public:
     Display(iDogm163 & dogm163);
 
-    void init();
+    virtual void init() override final;
 
   private:
     iDogm163 & dogm163;
