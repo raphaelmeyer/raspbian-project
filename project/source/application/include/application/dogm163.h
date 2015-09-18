@@ -4,6 +4,7 @@
 #include <cstdint>
 
 class iGpio;
+class iSpi;
 
 class iDogm163 {
   public:
@@ -12,12 +13,13 @@ class iDogm163 {
 
 class Dogm163 : public iDogm163 {
   public:
-    Dogm163(iGpio & rs);
+    Dogm163(iGpio & rs, iSpi & spi);
 
     virtual bool write_command(std::uint8_t command) override final;
 
   private:
     iGpio & rs;
+    iSpi & spi;
 };
 
 #endif
