@@ -4,10 +4,7 @@
 #include <cstdint>
 #include <vector>
 
-class iDogm163 {
-  public:
-    virtual bool write_command(std::uint8_t command) = 0;
-};
+class iDogm163;
 
 class iDisplay {
   public:

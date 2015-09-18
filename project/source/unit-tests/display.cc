@@ -1,6 +1,7 @@
 #include <gmock/gmock.h>
 
 #include <application/display.h>
+#include <application/dogm163.h>
 
 using namespace ::testing;
 
