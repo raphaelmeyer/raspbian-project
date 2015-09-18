@@ -6,6 +6,8 @@ class iDogm163 {
     virtual bool write_command(std::uint8_t command) = 0;
 };
 
+class Dogm163 : public iDogm163 {
+};
 
 #endif
 
