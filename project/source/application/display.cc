@@ -21,3 +21,9 @@ bool Display::init()
   return true;
 }
 
+// ------------------------------------------------------------
+bool Display::write(std::string const & text)
+{
+  return false;
+}
+

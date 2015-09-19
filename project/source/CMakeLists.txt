@@ -4,6 +4,8 @@ project(display VERSION 0.0.1)
 
 add_definitions(
   -std=c++11
+  -Wall
+  -Werror
   )
 
 add_subdirectory(main)

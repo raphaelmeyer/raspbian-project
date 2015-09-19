@@ -10,6 +10,7 @@ class Application {
     Application(iDisplay & display);
 
     bool init();
+    bool run();
 
   private:
     iDisplay & display;

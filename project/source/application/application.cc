@@ -14,3 +14,10 @@ bool Application::init()
   return true;
 }
 
+// ------------------------------------------------------------
+bool Application::run()
+{
+  display.write("Hello World");
+  return true;
+}
+
