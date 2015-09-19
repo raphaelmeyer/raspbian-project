@@ -22,5 +22,12 @@ class iGpio {
     virtual bool set(Signal signal) = 0;
 };
 
+// ------------------------------------------------------------
+class Gpio : public iGpio {
+  public:
+    virtual bool init(Direction direction) override final;
+    virtual bool set(Signal signal) override final;
+};
+
 #endif
 
