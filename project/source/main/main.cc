@@ -14,6 +14,7 @@ int main() {
 
   Application application(display);
 
-  //application.run();
+  application.init();
+  application.run();
 }
 

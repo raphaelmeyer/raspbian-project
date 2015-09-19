@@ -8,16 +8,14 @@ Application::Application(iDisplay & display)
 }
 
 // ------------------------------------------------------------
-bool Application::init()
+void Application::init()
 {
   display.init();
-  return true;
 }
 
 // ------------------------------------------------------------
-bool Application::run()
+void Application::run()
 {
   display.write("Hello World");
-  return true;
 }
 

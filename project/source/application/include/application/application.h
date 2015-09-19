@@ -9,8 +9,8 @@ class Application {
   public:
     Application(iDisplay & display);
 
-    bool init();
-    bool run();
+    void init();
+    void run();
 
   private:
     iDisplay & display;

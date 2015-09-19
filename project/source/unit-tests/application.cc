@@ -23,7 +23,7 @@ TEST(application, initializes_display)
   EXPECT_CALL(display, init())
     .WillOnce(Return(true));
 
-  ASSERT_TRUE(testee.init());
+  testee.init();
 }
 
 // ------------------------------------------------------------
@@ -35,7 +35,7 @@ TEST(application, writes_hello_world)
   EXPECT_CALL(display, write("Hello World"))
     .WillOnce(Return(true));
 
-  ASSERT_TRUE(testee.run());
+  testee.run();
 }
 
 } // namespace
