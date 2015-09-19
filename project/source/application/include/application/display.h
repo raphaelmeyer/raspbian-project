@@ -4,18 +4,21 @@
 #include <cstdint>
 #include <vector>
 
+// ------------------------------------------------------------
 class iDogm163;
 
+// ------------------------------------------------------------
 class iDisplay {
   public:
-    virtual void init() = 0;
+    virtual bool init() = 0;
 };
 
+// ------------------------------------------------------------
 class Display : public iDisplay {
   public:
     Display(iDogm163 & dogm163);
 
-    virtual void init() override final;
+    virtual bool init() override final;
 
   private:
     iDogm163 & dogm163;

@@ -1,6 +1,7 @@
 project(unit-tests)
 
 add_executable(unit-tests
+  application.cc
   display.cc
   dogm163.cc
   )
