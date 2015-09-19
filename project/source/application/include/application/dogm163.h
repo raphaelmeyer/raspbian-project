@@ -15,6 +15,8 @@ class Dogm163 : public iDogm163 {
   public:
     Dogm163(iGpio & rs, iSpi & spi);
 
+    bool init();
+
     virtual bool write_command(std::uint8_t command) override final;
 
   private:

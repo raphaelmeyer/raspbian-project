@@ -6,6 +6,7 @@
 
 using namespace ::testing;
 
+// ------------------------------------------------------------
 class Spi_Mock : public iSpi {
   public:
     MOCK_METHOD1(send, bool(std::uint8_t value));
@@ -13,9 +14,33 @@ class Spi_Mock : public iSpi {
 
 class Gpio_Mock : public iGpio {
   public:
+    MOCK_METHOD1(init, bool(Direction direction));
     MOCK_METHOD1(set, bool(Signal signal));
 };
 
+// CPOL = 1 ?
+// CPHA = 1 ?
+
+// ------------------------------------------------------------
+TEST(dogm163, initializes_rs_as_output_set_to_low)
+{
+  Gpio_Mock rs;
+  NiceMock<Spi_Mock> spi;
+
+  Dogm163 testee(rs, spi);
+
+  InSequence init;
+
+  EXPECT_CALL(rs, init(Direction::Output))
+    .WillOnce(Return(true));
+
+  EXPECT_CALL(rs, set(Signal::Low))
+    .WillOnce(Return(true));
+
+  ASSERT_TRUE(testee.init());
+}
+
+// ------------------------------------------------------------
 TEST(dogm163, sets_RS_to_low_when_sending_a_command)
 {
   Gpio_Mock rs;
@@ -30,6 +55,7 @@ TEST(dogm163, sets_RS_to_low_when_sending_a_command)
   ASSERT_TRUE(testee.write_command(arbitrary_command));
 }
 
+// ------------------------------------------------------------
 TEST(dogm163, sends_command_over_spi)
 {
   NiceMock<Gpio_Mock> rs;
