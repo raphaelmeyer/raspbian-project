@@ -19,32 +19,7 @@ TEST(display, is_initialized_with_a_sequence_of_commands)
 
   InSequence init;
 
-  EXPECT_CALL(dogm163, write_command(0x39))
-    .WillOnce(Return(true));
-
-  EXPECT_CALL(dogm163, write_command(0x15))
-    .WillOnce(Return(true));
-
-  EXPECT_CALL(dogm163, write_command(0x55))
-    .WillOnce(Return(true));
-
-  EXPECT_CALL(dogm163, write_command(0x6E))
-    .WillOnce(Return(true));
-
-  EXPECT_CALL(dogm163, write_command(0x72))
-    .WillOnce(Return(true));
-
-  EXPECT_CALL(dogm163, write_command(0x38))
-    .WillOnce(Return(true));
-
-  EXPECT_CALL(dogm163, write_command(0x0F))
-    .WillOnce(Return(true));
-
-  EXPECT_CALL(dogm163, write_command(0x01))
-    .WillOnce(Return(true));
-
-  EXPECT_CALL(dogm163, write_command(0x06))
-    .WillOnce(Return(true));
+  // 38, 39, 14, 78, 5E, 6A, 0C, 01, 06
 
   testee.init();
 }
