@@ -30,7 +30,7 @@ class Dogm163 : public iDogm163 {
     iGpio & _rs;
     iGpio & _reset;
 
-    static std::chrono::microseconds const reset_pulse;
+    static std::chrono::microseconds const reset_pulse_time;
     static std::chrono::milliseconds const reset_time;
 };
 

@@ -14,7 +14,39 @@ using namespace ::testing;
 // 39, 15, 78, 5E, 6A, 0C, 01, 06
 
 // ------------------------------------------------------------
-TEST(dogm163, reset_controller)
+TEST(dogm163_initialization, configures_RS_as_output_sets_it_to_low)
+{
+  Time_Mock time;
+  NiceMock<Gpio_Mock> reset;
+  Gpio_Mock rs;
+  Spi_Mock spi;
+
+  Dogm163 testee(time, spi, rs, reset);
+
+  EXPECT_CALL(rs, init(Direction::Output));
+  EXPECT_CALL(rs, set(Signal::Low));
+
+  testee.init();
+}
+
+// ------------------------------------------------------------
+TEST(dogm163_initialization, configures_Reset_as_output_sets_it_to_low)
+{
+  Time_Mock time;
+  Gpio_Mock reset;
+  NiceMock<Gpio_Mock> rs;
+  Spi_Mock spi;
+
+  Dogm163 testee(time, spi, rs, reset);
+
+  EXPECT_CALL(reset, init(Direction::Output));
+  EXPECT_CALL(reset, set(Signal::Low));
+
+  testee.init();
+}
+
+// ------------------------------------------------------------
+TEST(dogm163, waits_for_controller_after_reset)
 {
   Time_Mock time;
   Gpio_Mock reset;
@@ -35,11 +67,6 @@ TEST(dogm163, reset_controller)
 }
 
 // ------------------------------------------------------------
-TEST(dogm163_initialization, DISABLED_configures_RS_as_output_sets_it_to_low)
-{
-  FAIL();
-}
-
 TEST(dogm163, DISABLED_sets_RS_to_low_when_sending_a_command)
 {
   FAIL();
