@@ -1,75 +1,53 @@
 #include <gmock/gmock.h>
 
 #include <application/dogm163.h>
-#include <application/gpio.h>
-#include <application/spi.h>
+
+#include "mocks.h"
 
 using namespace ::testing;
 
-// ------------------------------------------------------------
-class Spi_Mock : public iSpi {
-  public:
-    MOCK_METHOD1(send, bool(std::uint8_t value));
-};
-
-class Gpio_Mock : public iGpio {
-  public:
-    MOCK_METHOD1(init, bool(Direction direction));
-    MOCK_METHOD1(set, bool(Signal signal));
-};
-
+// spi mode
 // CPOL = 1 ?
 // CPHA = 1 ?
 
+// Init sequence (to be reviewed)
+// 39, 15, 78, 5E, 6A, 0C, 01, 06
+
 // ------------------------------------------------------------
-TEST(dogm163, initializes_rs_as_output_set_to_low)
+TEST(dogm163, reset_controller)
 {
+  Time_Mock time;
+  Gpio_Mock reset;
   Gpio_Mock rs;
-  NiceMock<Spi_Mock> spi;
-
-  Dogm163 testee(rs, spi);
-
-  InSequence init;
-
-  EXPECT_CALL(rs, init(Direction::Output))
-    .WillOnce(Return(true));
-
-  EXPECT_CALL(rs, set(Signal::Low))
-    .WillOnce(Return(true));
-
-  ASSERT_TRUE(testee.init());
-}
-
-// ------------------------------------------------------------
-TEST(dogm163, sets_RS_to_low_when_sending_a_command)
-{
-  Gpio_Mock rs;
-  NiceMock<Spi_Mock> spi;
-  Dogm163 testee(rs, spi);
-
-  uint8_t const arbitrary_command = 0xAA;
-
-  EXPECT_CALL(rs, set(Signal::Low)).
-    WillOnce(Return(true));
-
-  ASSERT_TRUE(testee.write_command(arbitrary_command));
-}
-
-// ------------------------------------------------------------
-TEST(dogm163, sends_command_over_spi)
-{
-  NiceMock<Gpio_Mock> rs;
   Spi_Mock spi;
-  Dogm163 testee(rs, spi);
 
-  ON_CALL(rs, set(_))
-    .WillByDefault(Return(true));
+  Dogm163 testee(time, spi, rs, reset);
 
-  uint8_t const command = 0x5A;
+  std::chrono::microseconds const reset_pulse(200);
+  std::chrono::milliseconds const reset_time(50);
 
-  EXPECT_CALL(spi, send(command)).
-    WillOnce(Return(true));
+  EXPECT_CALL(reset, set(Signal::Low));
+  EXPECT_CALL(time, sleep(reset_pulse));
+  EXPECT_CALL(reset, set(Signal::High));
+  EXPECT_CALL(time, sleep(reset_time));
 
-  ASSERT_TRUE(testee.write_command(command));
+  testee.reset();
+}
+
+// ------------------------------------------------------------
+TEST(dogm163_initialization, DISABLED_configures_RS_as_output_sets_it_to_low)
+{
+  FAIL();
+}
+
+TEST(dogm163, DISABLED_sets_RS_to_low_when_sending_a_command)
+{
+  FAIL();
+}
+
+// ------------------------------------------------------------
+TEST(dogm163, DISABLED_sends_command_over_spi)
+{
+  FAIL();
 }
 

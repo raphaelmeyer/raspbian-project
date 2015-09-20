@@ -13,8 +13,8 @@ int main() {
 
   Time time;
 
-  Display display(reset, time);
-
+  Dogm163 dogm163(time, spi0, rs, reset);
+  Display display(dogm163);
   Application application(display);
 
   application.init();

@@ -2,29 +2,36 @@
 #define dogm163_h
 
 #include <cstdint>
+#include <chrono>
 
 // ------------------------------------------------------------
 class iGpio;
 class iSpi;
+class iTime;
 
 // ------------------------------------------------------------
 class iDogm163 {
   public:
-    virtual bool write_command(std::uint8_t command) = 0;
+    virtual void init() = 0;
+    virtual void reset() = 0;
 };
 
 // ------------------------------------------------------------
 class Dogm163 : public iDogm163 {
   public:
-    Dogm163(iGpio & rs, iSpi & spi);
+    Dogm163(iTime const & time, iSpi & spi, iGpio & rs, iGpio & reset);
 
-    bool init();
-
-    virtual bool write_command(std::uint8_t command) override final;
+    virtual void init() override final;
+    virtual void reset() override final;
 
   private:
-    iGpio & rs;
-    iSpi & spi;
+    iTime const & _time;
+    iSpi & _spi;
+    iGpio & _rs;
+    iGpio & _reset;
+
+    static std::chrono::microseconds const reset_pulse;
+    static std::chrono::milliseconds const reset_time;
 };
 
 #endif

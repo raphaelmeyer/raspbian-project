@@ -3,11 +3,9 @@
 
 #include <cstdint>
 #include <string>
-#include <chrono>
 
 // ------------------------------------------------------------
-class iGpio;
-class iTime;
+class iDogm163;
 
 // ------------------------------------------------------------
 class iDisplay {
@@ -19,17 +17,13 @@ class iDisplay {
 // ------------------------------------------------------------
 class Display : public iDisplay {
   public:
-    Display(iGpio & reset, iTime const & time);
+    Display(iDogm163 & dogm163);
 
     virtual void init() override final;
     virtual void write(std::string const & text) override final;
 
   private:
-    iGpio & reset;
-    iTime const & time;
-
-    static std::chrono::microseconds const reset_pulse;
-    static std::chrono::milliseconds const reset_time;
+    iDogm163 & _dogm163;
 };
 
 #endif

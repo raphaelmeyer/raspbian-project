@@ -1,27 +1,33 @@
 #include "application/dogm163.h"
+
 #include "application/gpio.h"
 #include "application/spi.h"
+#include "application/time.h"
 
 // ------------------------------------------------------------
-Dogm163::Dogm163(iGpio & rs, iSpi & spi)
-  : rs(rs)
-  , spi(spi)
+std::chrono::microseconds const Dogm163::reset_pulse(200);
+std::chrono::milliseconds const Dogm163::reset_time(50);
+
+// ------------------------------------------------------------
+Dogm163::Dogm163(iTime const & time, iSpi & spi, iGpio & rs, iGpio & reset)
+  : _time(time)
+  , _spi(spi)
+  , _rs(rs)
+  , _reset(reset)
 {
 }
 
 // ------------------------------------------------------------
-bool Dogm163::init()
+void Dogm163::init()
 {
-  rs.init(Direction::Output);
-  rs.set(Signal::Low);
-  return true;
 }
 
 // ------------------------------------------------------------
-bool Dogm163::write_command(std::uint8_t command)
+void Dogm163::reset()
 {
-  rs.set(Signal::Low);
-  spi.send(command);
-  return true;
+  _reset.set(Signal::Low);
+  _time.sleep(reset_pulse);
+  _reset.set(Signal::High);
+  _time.sleep(reset_time);
 }
 
