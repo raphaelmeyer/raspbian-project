@@ -5,7 +5,7 @@
 #include <string>
 
 // ------------------------------------------------------------
-class iDogm163;
+class iGpio;
 
 // ------------------------------------------------------------
 class iDisplay {
@@ -17,13 +17,13 @@ class iDisplay {
 // ------------------------------------------------------------
 class Display : public iDisplay {
   public:
-    Display(iDogm163 & dogm163);
+    Display(iGpio & reset);
 
     virtual void init() override final;
     virtual void write(std::string const & text) override final;
 
   private:
-    iDogm163 & dogm163;
+    iGpio & reset;
 };
 
 #endif

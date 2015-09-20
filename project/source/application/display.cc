@@ -1,15 +1,17 @@
 #include "application/display.h"
-#include "application/dogm163.h"
+#include "application/gpio.h"
 
 // ------------------------------------------------------------
-Display::Display(iDogm163 & dogm163)
-  : dogm163(dogm163)
+Display::Display(iGpio & reset)
+  : reset(reset)
 {
 }
 
 // ------------------------------------------------------------
 void Display::init()
 {
+  reset.set(Signal::Low);
+  reset.set(Signal::High);
 }
 
 // ------------------------------------------------------------

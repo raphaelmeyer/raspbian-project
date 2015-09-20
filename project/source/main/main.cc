@@ -6,11 +6,11 @@
 
 int main() {
 
-  Spi spi0;
+  Gpio reset;
   Gpio rs;
+  Spi spi0;
 
-  Dogm163 dogm163(rs, spi0);
-  Display display(dogm163);
+  Display display(reset);
 
   Application application(display);
 

@@ -1,25 +1,30 @@
 #include <gmock/gmock.h>
 
 #include <application/display.h>
-#include <application/dogm163.h>
+#include <application/gpio.h>
 
 using namespace ::testing;
 
+// Init sequence (to be reviewed)
+// 39, 15, 78, 5E, 6A, 0C, 01, 06
+
 // ------------------------------------------------------------
-class Dogm163_Mock : public iDogm163 {
+class Gpio_Mock : public iGpio {
   public:
-    MOCK_METHOD1(write_command, bool(std::uint8_t command));
+    MOCK_METHOD1(init, bool(Direction direction));
+    MOCK_METHOD1(set, bool(Signal signal));
 };
 
 // ------------------------------------------------------------
-TEST(display, is_initialized_with_a_sequence_of_commands)
+TEST(display_initialization, resets_controller)
 {
-  Dogm163_Mock dogm163;
-  Display testee(dogm163);
+  Gpio_Mock reset;
+  Display testee(reset);
 
   InSequence init;
 
-  // 38, 39, 14, 78, 5E, 6A, 0C, 01, 06
+  EXPECT_CALL(reset, set(Signal::Low));
+  EXPECT_CALL(reset, set(Signal::High));
 
   testee.init();
 }
