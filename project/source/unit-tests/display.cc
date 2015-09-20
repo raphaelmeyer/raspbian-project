@@ -24,6 +24,8 @@ class Time_Mock : public iTime
 {
   public:
     MOCK_CONST_METHOD1(sleep, void(std::chrono::microseconds const & duration));
+    MOCK_CONST_METHOD1(sleep, void(std::chrono::milliseconds const & duration));
+    MOCK_CONST_METHOD1(sleep, void(std::chrono::seconds const & duration));
 };
 
 // ------------------------------------------------------------
@@ -35,18 +37,13 @@ TEST(display_initialization, resets_controller)
 
   InSequence init;
 
-  // reset = low
-  // wait 200 us
-  // reset = high
-  // wait 50 ms
-
   std::chrono::microseconds const reset_pulse(200);
-
-  //std::chrono::milliseconds const reset_time(50);
+  std::chrono::milliseconds const reset_time(50);
 
   EXPECT_CALL(reset, set(Signal::Low));
   EXPECT_CALL(time, sleep(reset_pulse));
   EXPECT_CALL(reset, set(Signal::High));
+  EXPECT_CALL(time, sleep(reset_time));
 
   testee.init();
 }

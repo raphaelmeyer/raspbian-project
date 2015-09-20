@@ -29,6 +29,7 @@ class Display : public iDisplay {
     iTime const & time;
 
     static std::chrono::microseconds const reset_pulse;
+    static std::chrono::milliseconds const reset_time;
 };
 
 #endif
