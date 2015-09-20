@@ -1,9 +1,14 @@
 #include "application/display.h"
 #include "application/gpio.h"
+#include "application/time.h"
 
 // ------------------------------------------------------------
-Display::Display(iGpio & reset)
+std::chrono::microseconds const Display::reset_pulse(200);
+
+// ------------------------------------------------------------
+Display::Display(iGpio & reset, iTime const & time)
   : reset(reset)
+  , time(time)
 {
 }
 
@@ -11,6 +16,7 @@ Display::Display(iGpio & reset)
 void Display::init()
 {
   reset.set(Signal::Low);
+  time.sleep(reset_pulse);
   reset.set(Signal::High);
 }
 

@@ -3,6 +3,7 @@
 #include <application/dogm163.h>
 #include <application/gpio.h>
 #include <application/spi.h>
+#include <application/time.h>
 
 int main() {
 
@@ -10,7 +11,9 @@ int main() {
   Gpio rs;
   Spi spi0;
 
-  Display display(reset);
+  Time time;
+
+  Display display(reset, time);
 
   Application application(display);
 
