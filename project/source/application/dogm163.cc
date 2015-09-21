@@ -34,5 +34,8 @@ void Dogm163::reset()
   _time.sleep(reset_pulse_time);
   _reset.set(Signal::High);
   _time.sleep(reset_time);
+
+  _rs.set(Signal::Low);
+  _spi.send(0x39);
 }
 

@@ -10,8 +10,6 @@ using namespace ::testing;
 // CPOL = 1 ?
 // CPHA = 1 ?
 
-// Init sequence (to be reviewed)
-// 39, 15, 78, 5E, 6A, 0C, 01, 06
 
 // ------------------------------------------------------------
 TEST(dogm163_initialization, configures_RS_as_output_sets_it_to_low)
@@ -50,8 +48,8 @@ TEST(dogm163, waits_for_controller_after_reset)
 {
   Time_Mock time;
   Gpio_Mock reset;
-  Gpio_Mock rs;
-  Spi_Mock spi;
+  NiceMock<Gpio_Mock> rs;
+  NiceMock<Spi_Mock> spi;
 
   Dogm163 testee(time, spi, rs, reset);
 
@@ -67,14 +65,21 @@ TEST(dogm163, waits_for_controller_after_reset)
 }
 
 // ------------------------------------------------------------
-TEST(dogm163, DISABLED_sets_RS_to_low_when_sending_a_command)
+TEST(dogm163, configures_controller_after_reset)
 {
-  FAIL();
-}
+  NiceMock<Time_Mock> time;
+  NiceMock<Gpio_Mock> reset;
+  Gpio_Mock rs;
+  Spi_Mock spi;
 
-// ------------------------------------------------------------
-TEST(dogm163, DISABLED_sends_command_over_spi)
-{
-  FAIL();
+  Dogm163 testee(time, spi, rs, reset);
+
+  EXPECT_CALL(rs, set(Signal::Low));
+  EXPECT_CALL(spi, send(0x39));
+
+// Init sequence (to be reviewed)
+// 39, 15, 78, 5E, 6A, 0C, 01, 06
+
+  testee.reset();
 }
 
