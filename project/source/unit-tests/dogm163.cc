@@ -74,8 +74,11 @@ TEST(dogm163, configures_controller_after_reset)
 
   Dogm163 testee(time, spi, rs, reset);
 
+  InSequence configure;
+
   EXPECT_CALL(rs, set(Signal::Low));
   EXPECT_CALL(spi, send(0x39));
+  EXPECT_CALL(spi, send(0x15));
 
 // Init sequence (to be reviewed)
 // 39, 15, 78, 5E, 6A, 0C, 01, 06

@@ -37,5 +37,6 @@ void Dogm163::reset()
 
   _rs.set(Signal::Low);
   _spi.send(0x39);
+  _spi.send(0x15);
 }
 
