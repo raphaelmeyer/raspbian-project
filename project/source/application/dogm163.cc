@@ -8,6 +8,9 @@
 std::chrono::microseconds const Dogm163::reset_pulse_time(200);
 std::chrono::milliseconds const Dogm163::reset_time(50);
 
+std::vector<std::uint8_t> const Dogm163::init_sequence{
+  0x39, 0x15, 0x78, 0x5E, 0x6A, 0x0C, 0x01, 0x06};
+
 // ------------------------------------------------------------
 Dogm163::Dogm163(iTime const & time, iSpi & spi, iGpio & rs, iGpio & reset)
   : _time(time)
@@ -36,7 +39,8 @@ void Dogm163::reset()
   _time.sleep(reset_time);
 
   _rs.set(Signal::Low);
-  _spi.send(0x39);
-  _spi.send(0x15);
+  for(auto command : init_sequence) {
+    _spi.send(command);
+  }
 }
 

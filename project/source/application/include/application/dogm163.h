@@ -3,6 +3,7 @@
 
 #include <cstdint>
 #include <chrono>
+#include <vector>
 
 // ------------------------------------------------------------
 class iGpio;
@@ -32,6 +33,8 @@ class Dogm163 : public iDogm163 {
 
     static std::chrono::microseconds const reset_pulse_time;
     static std::chrono::milliseconds const reset_time;
+
+    static std::vector<std::uint8_t> const init_sequence;
 };
 
 #endif
