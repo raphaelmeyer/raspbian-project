@@ -21,6 +21,7 @@ class Dogm163_Mock : public iDogm163 {
   public:
     MOCK_METHOD0(init, void());
     MOCK_METHOD0(reset, void());
+    MOCK_METHOD1(write, void(std::string const & text));
 };
 
 // ------------------------------------------------------------

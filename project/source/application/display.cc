@@ -18,5 +18,6 @@ void Display::init()
 // ------------------------------------------------------------
 void Display::write(std::string const & text)
 {
+  _dogm163.write(text);
 }
 

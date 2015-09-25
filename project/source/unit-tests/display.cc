@@ -22,5 +22,18 @@ TEST(display_initialization, inits_and_resets_controller)
   testee.init();
 }
 
+// ------------------------------------------------------------
+TEST(display, write_text)
+{
+  Dogm163_Mock dogm163;
+  Display testee(dogm163);
+
+  std::string const text = "hello";
+
+  EXPECT_CALL(dogm163, write(text));
+
+  testee.write(text);
+}
+
 } // namespace
 
