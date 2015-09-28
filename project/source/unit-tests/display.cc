@@ -23,6 +23,17 @@ TEST(display_initialization, inits_and_resets_controller)
 }
 
 // ------------------------------------------------------------
+TEST(display, clear_the_display)
+{
+  Dogm163_Mock dogm163;
+  Display testee(dogm163);
+
+  EXPECT_CALL(dogm163, write_command(Command::ClearDisplay));
+
+  testee.clear();
+}
+
+// ------------------------------------------------------------
 TEST(display, write_text)
 {
   Dogm163_Mock dogm163;

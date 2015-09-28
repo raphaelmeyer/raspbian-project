@@ -12,10 +12,18 @@ class iSpi;
 class iTime;
 
 // ------------------------------------------------------------
+enum class Command {
+  Undefined,
+  ClearDisplay,
+};
+
+// ------------------------------------------------------------
 class iDogm163 {
   public:
     virtual void init() = 0;
     virtual void reset() = 0;
+
+    virtual void write_command(Command command) = 0;
 
     virtual void write(std::string const & text) = 0;
 };
@@ -28,7 +36,8 @@ class Dogm163 : public iDogm163 {
     virtual void init() override final;
     virtual void reset() override final;
 
-    virtual void write(std::string const & text) override final {};
+    virtual void write_command(Command command) override final {}
+    virtual void write(std::string const & text) override final {}
 
   private:
     iTime const & _time;

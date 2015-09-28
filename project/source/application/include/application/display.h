@@ -11,6 +11,7 @@ class iDogm163;
 class iDisplay {
   public:
     virtual void init() = 0;
+    virtual void clear() = 0;
     virtual void write(std::string const & text) = 0;
 };
 
@@ -20,6 +21,7 @@ class Display : public iDisplay {
     Display(iDogm163 & dogm163);
 
     virtual void init() override final;
+    virtual void clear() override final;
     virtual void write(std::string const & text) override final;
 
   private:

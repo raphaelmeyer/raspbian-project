@@ -13,6 +13,7 @@ namespace {
 class Display_Mock : public iDisplay {
   public:
     MOCK_METHOD0(init, void());
+    MOCK_METHOD0(clear, void());
     MOCK_METHOD1(write, void(std::string const & text));
 };
 
@@ -21,6 +22,7 @@ class Dogm163_Mock : public iDogm163 {
   public:
     MOCK_METHOD0(init, void());
     MOCK_METHOD0(reset, void());
+    MOCK_METHOD1(write_command, void(Command command));
     MOCK_METHOD1(write, void(std::string const & text));
 };
 

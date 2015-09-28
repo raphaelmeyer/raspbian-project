@@ -16,6 +16,12 @@ void Display::init()
 }
 
 // ------------------------------------------------------------
+void Display::clear()
+{
+  _dogm163.write_command(Command::ClearDisplay);
+}
+
+// ------------------------------------------------------------
 void Display::write(std::string const & text)
 {
   _dogm163.write(text);

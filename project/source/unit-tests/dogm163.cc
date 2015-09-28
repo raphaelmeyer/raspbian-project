@@ -13,6 +13,8 @@ using namespace ::testing;
 // Init sequence (to be reviewed)
 // 39, 15, 78, 5E, 6A, 0C, 01, 06
 
+namespace {
+
 // ------------------------------------------------------------
 TEST(dogm163_initialization, configures_RS_as_output_sets_it_to_low)
 {
@@ -93,4 +95,6 @@ TEST(dogm163, configures_controller_after_reset)
 
   testee.reset();
 }
+
+} // namespace
 
