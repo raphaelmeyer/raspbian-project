@@ -4,7 +4,6 @@
 #include <cstdint>
 #include <chrono>
 #include <vector>
-#include <string>
 
 // ------------------------------------------------------------
 class iGpio;
@@ -24,8 +23,7 @@ class iDogm163 {
     virtual void reset() = 0;
 
     virtual void write_command(Command command) = 0;
-
-    virtual void write(std::string const & text) = 0;
+    virtual void write_data(std::vector<uint8_t> const & data) = 0;
 };
 
 // ------------------------------------------------------------
@@ -37,7 +35,7 @@ class Dogm163 : public iDogm163 {
     virtual void reset() override final;
 
     virtual void write_command(Command command) override final {}
-    virtual void write(std::string const & text) override final {}
+    virtual void write_data(std::vector<uint8_t> const & data) {};
 
   private:
     iTime const & _time;

@@ -40,8 +40,9 @@ TEST(display, write_text)
   Display testee(dogm163);
 
   std::string const text = "hello";
+  std::vector<uint8_t> const expected = {'h','e','l','l','o'};
 
-  EXPECT_CALL(dogm163, write(text));
+  EXPECT_CALL(dogm163, write_data(expected));
 
   testee.write(text);
 }

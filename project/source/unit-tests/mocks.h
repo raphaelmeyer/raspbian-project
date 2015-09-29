@@ -23,7 +23,7 @@ class Dogm163_Mock : public iDogm163 {
     MOCK_METHOD0(init, void());
     MOCK_METHOD0(reset, void());
     MOCK_METHOD1(write_command, void(Command command));
-    MOCK_METHOD1(write, void(std::string const & text));
+    MOCK_METHOD1(write_data, void(std::vector<uint8_t> const & data));
 };
 
 // ------------------------------------------------------------
