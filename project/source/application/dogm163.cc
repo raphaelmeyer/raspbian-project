@@ -48,6 +48,7 @@ void Dogm163::reset()
 void Dogm163::write_command(Command command)
 {
   _rs.set(Signal::Low);
+  _spi.send(0);
 }
 
 // ------------------------------------------------------------

@@ -97,7 +97,7 @@ TEST(dogm163, configures_controller_after_reset)
 }
 
 // ------------------------------------------------------------
-TEST(dogm163, set_RS_low_when_writing_a_command)
+TEST(dogm163, writes_command_over_spi_after_setting_RS_low)
 {
   NiceMock<Time_Mock> time;
   NiceMock<Gpio_Mock> reset;
@@ -106,9 +106,14 @@ TEST(dogm163, set_RS_low_when_writing_a_command)
 
   Dogm163 testee(time, spi, rs, reset);
 
-  EXPECT_CALL(rs, set(Signal::Low));
+  Command any_command = Command::ClearDisplay;
 
-  testee.write_command(Command::ClearDisplay);
+  InSequence writeSequence;
+
+  EXPECT_CALL(rs, set(Signal::Low));
+  EXPECT_CALL(spi, send(_));
+
+  testee.write_command(any_command);
 }
 
 // ------------------------------------------------------------
