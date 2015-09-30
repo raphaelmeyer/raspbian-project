@@ -97,7 +97,7 @@ TEST(dogm163, configures_controller_after_reset)
 }
 
 // ------------------------------------------------------------
-TEST(dogm163, set_RS_when_writing_data)
+TEST(dogm163, set_RS_high_when_writing_data)
 {
   NiceMock<Time_Mock> time;
   NiceMock<Gpio_Mock> reset;
@@ -111,6 +111,21 @@ TEST(dogm163, set_RS_when_writing_data)
   EXPECT_CALL(rs, set(Signal::High));
 
   testee.write_data(data);
+}
+
+// ------------------------------------------------------------
+TEST(dogm163, set_RS_low_when_writing_a_command)
+{
+  NiceMock<Time_Mock> time;
+  NiceMock<Gpio_Mock> reset;
+  Gpio_Mock rs;
+  Spi_Mock spi;
+
+  Dogm163 testee(time, spi, rs, reset);
+
+  EXPECT_CALL(rs, set(Signal::Low));
+
+  testee.write_command(Command::ClearDisplay);
 }
 
 } // namespace
