@@ -96,5 +96,22 @@ TEST(dogm163, configures_controller_after_reset)
   testee.reset();
 }
 
+// ------------------------------------------------------------
+TEST(dogm163, set_RS_when_writing_data)
+{
+  NiceMock<Time_Mock> time;
+  NiceMock<Gpio_Mock> reset;
+  Gpio_Mock rs;
+  Spi_Mock spi;
+
+  Dogm163 testee(time, spi, rs, reset);
+
+  std::vector<uint8_t> const data = {0x01, 0x02, 0x03, 0x04};
+
+  EXPECT_CALL(rs, set(Signal::High));
+
+  testee.write_data(data);
+}
+
 } // namespace
 

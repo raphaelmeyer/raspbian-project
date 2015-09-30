@@ -44,3 +44,14 @@ void Dogm163::reset()
   }
 }
 
+// ------------------------------------------------------------
+void Dogm163::write_command(Command command)
+{
+}
+
+// ------------------------------------------------------------
+void Dogm163::write_data(std::vector<uint8_t> const & data)
+{
+  _rs.set(Signal::High);
+}
+

@@ -34,8 +34,8 @@ class Dogm163 : public iDogm163 {
     virtual void init() override final;
     virtual void reset() override final;
 
-    virtual void write_command(Command command) override final {}
-    virtual void write_data(std::vector<uint8_t> const & data) {};
+    virtual void write_command(Command command) override final;
+    virtual void write_data(std::vector<uint8_t> const & data) override final;
 
   private:
     iTime const & _time;
