@@ -112,33 +112,20 @@ TEST(dogm163, set_RS_low_when_writing_a_command)
 }
 
 // ------------------------------------------------------------
-TEST(dogm163, set_RS_high_when_writing_data)
+TEST(dogm163, writes_data_over_spi_after_setting_RS_high)
 {
   NiceMock<Time_Mock> time;
   NiceMock<Gpio_Mock> reset;
   Gpio_Mock rs;
-  NiceMock<Spi_Mock> spi;
-
-  Dogm163 testee(time, spi, rs, reset);
-
-  std::vector<uint8_t> const data = {0x01, 0x02, 0x03, 0x04};
-
-  EXPECT_CALL(rs, set(Signal::High));
-
-  testee.write_data(data);
-}
-
-// ------------------------------------------------------------
-TEST(dogm163, writes_data_over_spi)
-{
-  NiceMock<Time_Mock> time;
-  NiceMock<Gpio_Mock> reset;
-  NiceMock<Gpio_Mock> rs;
   Spi_Mock spi;
 
   Dogm163 testee(time, spi, rs, reset);
 
   std::vector<uint8_t> const data = {0x01, 0x02, 0x03, 0x04};
+
+  InSequence writeSequence;
+
+  EXPECT_CALL(rs, set(Signal::High));
 
   EXPECT_CALL(spi, send(data[0]));
   EXPECT_CALL(spi, send(data[1]));
