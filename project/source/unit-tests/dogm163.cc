@@ -97,12 +97,27 @@ TEST(dogm163, configures_controller_after_reset)
 }
 
 // ------------------------------------------------------------
+TEST(dogm163, set_RS_low_when_writing_a_command)
+{
+  NiceMock<Time_Mock> time;
+  NiceMock<Gpio_Mock> reset;
+  Gpio_Mock rs;
+  NiceMock<Spi_Mock> spi;
+
+  Dogm163 testee(time, spi, rs, reset);
+
+  EXPECT_CALL(rs, set(Signal::Low));
+
+  testee.write_command(Command::ClearDisplay);
+}
+
+// ------------------------------------------------------------
 TEST(dogm163, set_RS_high_when_writing_data)
 {
   NiceMock<Time_Mock> time;
   NiceMock<Gpio_Mock> reset;
   Gpio_Mock rs;
-  Spi_Mock spi;
+  NiceMock<Spi_Mock> spi;
 
   Dogm163 testee(time, spi, rs, reset);
 
@@ -114,18 +129,23 @@ TEST(dogm163, set_RS_high_when_writing_data)
 }
 
 // ------------------------------------------------------------
-TEST(dogm163, set_RS_low_when_writing_a_command)
+TEST(dogm163, writes_data_over_spi)
 {
   NiceMock<Time_Mock> time;
   NiceMock<Gpio_Mock> reset;
-  Gpio_Mock rs;
+  NiceMock<Gpio_Mock> rs;
   Spi_Mock spi;
 
   Dogm163 testee(time, spi, rs, reset);
 
-  EXPECT_CALL(rs, set(Signal::Low));
+  std::vector<uint8_t> const data = {0x01, 0x02, 0x03, 0x04};
 
-  testee.write_command(Command::ClearDisplay);
+  EXPECT_CALL(spi, send(data[0]));
+  EXPECT_CALL(spi, send(data[1]));
+  EXPECT_CALL(spi, send(data[2]));
+  EXPECT_CALL(spi, send(data[3]));
+
+  testee.write_data(data);
 }
 
 } // namespace
