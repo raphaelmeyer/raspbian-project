@@ -11,5 +11,6 @@ add_definitions(
 add_subdirectory(main)
 add_subdirectory(application)
 add_subdirectory(unit-tests)
+add_subdirectory(integration-tests)
 add_subdirectory(gmock-1.7.0)
 

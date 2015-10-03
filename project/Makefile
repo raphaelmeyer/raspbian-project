@@ -1,11 +1,15 @@
-all: application unit-tests
+all: display unit-tests
 
 unit-tests: host-src
-	cmake --build ~/host --target unit-tests
-	~/host/unit-tests/unit-tests
+	cmake --build ~/host --target $@
+	~/host/unit-tests/$@
 
-application: target-src
-	cmake --build ~/target --target display
+integration-tests: host-src
+	cmake --build ~/host --target $@
+	~/host/integration-tests/$@
+
+display: target-src
+	cmake --build ~/target --target $@
 	cp ~/target/main/display ~/artifacts/
 
 clean-target:
