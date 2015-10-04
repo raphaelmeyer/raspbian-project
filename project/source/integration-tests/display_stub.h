@@ -3,19 +3,35 @@
 
 #include <array>
 
-class Display_Stub
+class SpiListener {
+  public:
+    virtual bool notify_send(std::uint8_t value) = 0;
+};
+
+class Display_Stub : public SpiListener
 {
   public:
+    Display_Stub();
+
     iSpi & spi();
     iGpio & rs();
     iGpio & reset();
 
+    std::array<std::uint8_t, 3*16> const & screen();
+    bool notify_send(std::uint8_t value) override final;
+
   private:
+
 
     class Spi_Stub : public iSpi
     {
       public:
+        Spi_Stub(SpiListener & display);
+
         virtual bool send(std::uint8_t value) override final;
+
+      private:
+        SpiListener & _display;
     };
 
     class Gpio_Stub : public iGpio

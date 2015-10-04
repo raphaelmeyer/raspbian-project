@@ -7,6 +7,8 @@
 #include <application/display.h>
 #include <application/dogm163.h>
 
+using namespace ::testing;
+
 namespace {
 
 // ------------------------------------------------------------
@@ -23,7 +25,12 @@ TEST(integration, dummy)
   Display display(dogm163);
   Application app(display);
 
+  app.run();
 
+  std::array<std::uint8_t, 3*16> expected;
+  expected.fill(0x20);
+
+  ASSERT_THAT(display_stub.screen(), Eq(expected));
 }
 
 }
