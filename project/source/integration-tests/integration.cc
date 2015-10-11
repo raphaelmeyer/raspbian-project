@@ -14,7 +14,7 @@ namespace {
 // ------------------------------------------------------------
 TEST(integration, dummy)
 {
-  Display_Stub display_stub;
+  Stub::Dogm163 display_stub;
   Time_Fake time;
 
   iGpio & rs = display_stub.rs();
