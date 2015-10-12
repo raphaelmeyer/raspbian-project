@@ -27,8 +27,11 @@ TEST(integration, dummy)
 
   app.run();
 
-  std::array<std::uint8_t, 3*16> expected;
-  expected.fill(0x20);
+  std::array<std::uint8_t, 3*16> expected{{
+    'H', 'e', 'l', 'l', 'o', ' ', 'W', 'o', 'r', 'l', 'd', '.', ' ', ' ', ' ', ' ',
+    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '
+  }};
 
   ASSERT_THAT(display_stub.screen(), Eq(expected));
 }
